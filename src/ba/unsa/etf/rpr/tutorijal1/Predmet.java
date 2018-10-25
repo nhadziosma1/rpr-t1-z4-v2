@@ -2,80 +2,71 @@ package ba.unsa.etf.rpr.tutorijal1;
 
 public class Predmet
 {
-    String naziv_pr;
     Student[] niz_st;
-    int max_br_st, br_upisanih, br_pred;
+    String naziv_pr;
+    String sifra_pr;
+    final int MAX_ST;
+    int vec_upisanih;
 
-    public Predmet(int max_br_st, String naziv_pr, int br_pred)
-    {
-        if(max_br_st < 0)
-            max_br_st=0;
-
-        this.max_br_st=max_br_st;
-        this.naziv_pr=naziv_pr;
-        this.br_pred=br_pred;
-        this.br_upisanih=0;
-        niz_st=new Student[max_br_st];
+    public Student[] getNiz_st() {
+        return niz_st;
     }
 
-    public int upisi(Student st)
-    {
-        if(br_upisanih < max_br_st)
-        {
-            niz_st[br_upisanih] = new Student(st);
-            br_upisanih++;
-        }
-        return br_upisanih;
+    public void setNiz_st(Student[] niz_st) {
+        this.niz_st = niz_st;
     }
 
-    public int ispisi(Student st)
-    {
-        for(int i=0; i<br_upisanih; i++)
-        {
-            if(st.getBrojIndeksa() == niz_st[i].getBrojIndeksa())
-            {
-                for(int j=i; j<(br_upisanih-1); j++)
-                    niz_st[j] = niz_st[j+1];
-
-                br_upisanih--;
-                break;
-            }
-        }
-        return br_upisanih;
-    }
-
-    public String getNazivPredmeta()
-    {
+    public String getNaziv_pr() {
         return naziv_pr;
     }
 
-    public int getBrojUpisanih()
-    {
-        return br_upisanih;
+    public void setNaziv_pr(String naziv_pr) {
+        this.naziv_pr = naziv_pr;
     }
 
-    public int getBrojPredmeta()
-    {
-        return br_pred;
+    public String getSifra_pr() {
+        return sifra_pr;
     }
 
-    public int getMaxBrojStudenata()
-    {
-        return max_br_st;
+    public void setSifra_pr(String sifra_pr) {
+        this.sifra_pr = sifra_pr;
     }
 
-    public void setNazivPredmeta(String naziv)
+    Predmet(int MAX_ST, String naziv_pr, String sifra_pr) throws ArithmeticException
     {
-        this.naziv_pr=naziv;
-    }
-    public void setBrojUpisanih(int up)
-    {
-        this.br_upisanih=up;
+        if(MAX_ST<=0)
+        {
+            throw new ArithmeticException("Velicina niza ne moze biti 0 ili manja od 0");
+        }
+
+        niz_st=new Student[MAX_ST];
+        this.naziv_pr = naziv_pr;                 //(String)naziv_pr.clone();
+        this.sifra_pr = sifra_pr;                 //(String)sifra_pr.clone();
+        this.MAX_ST=MAX_ST;
+        vec_upisanih=0;
     }
 
-    public void setBrojPredmeta(int br_pred)
+    public void upisi(Student s)
     {
-        this.br_pred=br_pred;
+        if(vec_upisanih+1 >= MAX_ST)
+        {
+            System.out.println("Prekoracen maksimalni broj studenata u nizu");
+            return;
+        }
+
+        niz_st[vec_upisanih] = new Student(s);
+        vec_upisanih++;
     }
 
+    public void ispisi(Student s)
+    {
+        if(vec_upisanih-1 < 0)
+        {
+            System.out.println("Nema vise studenata u nizu");
+            return;
+        }
+
+        niz_st[vec_upisanih]=null;
+        vec_upisanih--;
+    }
 }
