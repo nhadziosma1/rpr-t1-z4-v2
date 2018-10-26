@@ -8,8 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PredmetTest 
 {
+    //U TESTNIM METODAMA NE SMIJU STAJATI PARAMETI FUNKCIJA (METODA),A MORAJUS TAJATI TIPOVI IZUZETAKA KOJE METODA MOZE BACITI
     @Test
-    void Predmet(int MAX_ST, String naziv_pr, String sifra_pr) throws ArithmeticException
+    void Predmet() throws ArithmeticException
     {
         assertThrows(ArithmeticException.class, ()->{ new Predmet(-1, "nebitno", "2" );} );
 
@@ -21,30 +22,84 @@ class PredmetTest
     }
 
     @Test
-    void upisi(Student s) throws ArithmeticException
+    void upisi1() throws ArithmeticException
     {
         Predmet p=new Predmet(1, "a", "4");
-        assertThrows(ArithmeticException.class, ()->{
-                                                        p.upisi(s);} );
+        Student s=new Student("Neki", "Novi", 1800);
+        assertThrows(ArithmeticException.class, ()->{ p.upisi(s);} );
+    }
+
+    @Test
+    void upisi2() throws ArithmeticException
+    {
+        Predmet p2=new Predmet(100, "MA", "1");
+        Student s2=new Student("Alex", "Ferguson", 18033 );
+        p2.upisi(s2);
+        assertEquals("Alex", p2.niz_st[0].ime);
+    }
+
+    @Test
+    void upisi3() throws ArithmeticException
+    {
+        Predmet p2=new Predmet(100, "MA", "1");
+        Student s2=new Student("Alex", "Ferguson", 18033 );
+        p2.upisi(s2);
+        assertEquals("Ferguson", p2.niz_st[0].prezime);
+    }
+
+    @Test
+    void upisi4() throws ArithmeticException
+    {
+        Predmet p2=new Predmet(100, "MA", "1");
+        Student s2=new Student("Alex", "Ferguson", 18033 );
+        p2.upisi(s2);
+        assertEquals(18033, p2.niz_st[0].br_ind);
+    }
+
+    @Test
+    void upisi5() throws ArithmeticException
+    {
+        Predmet p2=new Predmet(100, "MA", "1");
+        Student s2=new Student("Alex", "Ferguson", 18033 );
+        p2.upisi(s2);
+        assertEquals(1, p2.vec_upisanih);
+    }
+
+    @Test
+    void upisi6() throws ArithmeticException
+    {
+        Predmet p2=new Predmet(100, "MA", "1");
+        Student s2=new Student("Alex", "Ferguson", 18033 );
+        p2.upisi(s2);
+
+        Student s3=new Student("Alex", "Ferguson", 18033 );
+        assertThrows(ArithmeticException.class, ()->{p2.upisi(s3);} );
+    }
+
+    @Test
+    void upisi_svi_zajedno() throws ArithmeticException
+    {
+        Predmet p=new Predmet(1, "a", "4");
+        Student s=new Student("Neki", "Novi", 1800);
+        assertThrows(ArithmeticException.class, ()->{ p.upisi(s);} );
 
         Predmet p2=new Predmet(100, "MA", "1");
         Student s2=new Student("Alex", "Ferguson", 18033 );
-        p.upisi(s2);
+        p2.upisi(s2);
         assertEquals("Alex", p2.niz_st[0].ime);
         assertEquals("Ferguson", p2.niz_st[0].prezime);
         assertEquals(18033, p2.niz_st[0].br_ind);
         assertEquals(1, p2.vec_upisanih);
 
-
         Student s3=new Student("Alex", "Ferguson", 18033 );
-        assertThrows(ArithmeticException.class, ()->{p.upisi(s3);} );
+        assertThrows(ArithmeticException.class, ()->{p2.upisi(s3);} );
     }
 
-
     @Test
-    void ispisi(Student s) throws ArithmeticException
+    void ispisi() throws ArithmeticException
     {
         Predmet p=new Predmet(100, "TP", "8");
+        Student s=new Student("Neko", "Novi", 18000);
 
         assertThrows(ArithmeticException.class, ()->{ p.ispisi(s);} );
 
