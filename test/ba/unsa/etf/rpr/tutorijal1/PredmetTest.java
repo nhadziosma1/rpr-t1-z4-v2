@@ -2,14 +2,16 @@ package ba.unsa.etf.rpr.tutorijal1;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 class PredmetTest 
 {
     @Test
     void Predmet(int MAX_ST, String naziv_pr, String sifra_pr) throws ArithmeticException
     {
-        assert(ArithmeticException, new Predmet(-1, "nebitno", "2" ) );  // KOJEG TIPA assert????
+        assertThrows(ArithmeticException.class, ()->{ new Predmet(-1, "nebitno", "2" );} );
 
         Predmet p = new Predmet(5, "neki", "3");
         assertEquals("neki", p.naziv_pr);
@@ -19,10 +21,11 @@ class PredmetTest
     }
 
     @Test
-    void upisi(Student s)
+    void upisi(Student s) throws ArithmeticException
     {
         Predmet p=new Predmet(1, "a", "4");
-        assertEquals(ArithmeticException, p.upisi(s));
+        assertThrows(ArithmeticException.class, ()->{
+                                                        p.upisi(s);} );
 
         Predmet p2=new Predmet(100, "MA", "1");
         Student s2=new Student("Alex", "Ferguson", 18033 );
@@ -34,15 +37,16 @@ class PredmetTest
 
 
         Student s3=new Student("Alex", "Ferguson", 18033 );
-        assertEquals(ArithmeticException, p.upisi(s3));
+        assertThrows(ArithmeticException.class, ()->{p.upisi(s3);} );
     }
 
+
     @Test
-    void ispisi(Student s)
+    void ispisi(Student s) throws ArithmeticException
     {
         Predmet p=new Predmet(100, "TP", "8");
 
-        assertEquals(ArithmeticException, p.ispisi(s));
+        assertThrows(ArithmeticException.class, ()->{ p.ispisi(s);} );
 
         p.upisi(s);
         Student s2=new Student("Pol", "Skols", 22);
@@ -53,6 +57,6 @@ class PredmetTest
         assertEquals(1, p.vec_upisanih);
 
         Student s3=new Student("Rajan", "Giks", 11);
-        assertEquals(ArithmeticException, p.ispisi(s3));
+        assertThrows(ArithmeticException.class, ()->{p.ispisi(s3);} );
     }
 }
