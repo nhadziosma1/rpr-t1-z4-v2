@@ -35,9 +35,7 @@ public class Predmet
     Predmet(int MAX_ST, String naziv_pr, String sifra_pr) throws ArithmeticException
     {
         if(MAX_ST<=0)
-        {
             throw new ArithmeticException("Velicina niza ne moze biti 0 ili manja od 0");
-        }
 
         niz_st=new Student[MAX_ST];
         this.naziv_pr = naziv_pr;                 //(String)naziv_pr.clone();
@@ -46,27 +44,47 @@ public class Predmet
         vec_upisanih=0;
     }
 
-    public void upisi(Student s)
+    public void upisi(Student s)throws ArithmeticException
     {
         if(vec_upisanih+1 >= MAX_ST)
+            throw new ArithmeticException("Prekoracen maksimalni broj studenata u nizu");
+
+
+        for(int i=0; i<vec_upisanih; i++)
         {
-            System.out.println("Prekoracen maksimalni broj studenata u nizu");
-            return;
+            if(niz_st[i].ime.equals(s.ime) && niz_st[i].prezime.equals(s.prezime) && niz_st[i].br_ind==s.br_ind)
+                throw new ArithmeticException("Uneseni student vec slusa predmet"+getNaziv_pr());
         }
 
         niz_st[vec_upisanih] = new Student(s);
         vec_upisanih++;
     }
 
-    public void ispisi(Student s)
+    public void ispisi(Student s) throws ArithmeticException
     {
         if(vec_upisanih-1 < 0)
+            throw new ArithmeticException("Prekoracen maksimalni broj studenata u nizu");
+
+        int prekidac=0;
+        for(int i=0; i<vec_upisanih; i++)
         {
-            System.out.println("Nema vise studenata u nizu");
-            return;
+            if(niz_st[i].ime.equals(s.ime) && niz_st[i].prezime.equals(s.prezime) && niz_st[i].br_ind==s.br_ind)
+            {
+                vec_upisanih--;
+
+                for(int j=i; j<vec_upisanih; j++)
+                niz_st[i]=niz_st[i+1];
+
+                niz_st[vec_upisanih]=null;
+
+                prekidac=1;
+                break;
+            }
         }
 
-        niz_st[vec_upisanih]=null;
-        vec_upisanih--;
+        if(prekidac==0)
+        {
+            throw new ArithmeticException("Ne moze se izbrisati student: "+s.ime+" "+s.prezime+", jer on ne slusa ovaj predmet");
+        }
     }
 }

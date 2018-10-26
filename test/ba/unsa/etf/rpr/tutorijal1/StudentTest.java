@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class StudentTest {
 
     @Test
-    void getImeStudenta() {
+    void getImeStudenta()
+    {
+
     }
 
     @Test
